@@ -12,12 +12,16 @@ class MenuView(arcade.View):
 
         self._game = game
 
+    @property
+    def game(self) -> Game:
+        return self._game
+
     def on_show_view(self) -> None:
         print("Menu View started")
 
     def on_key_press(self, symbol: int, modifiers: int) -> bool | None:
         if symbol == arcade.key.SPACE:
-            self._game.start()
+            self.game.start()
 
         if symbol == arcade.key.Q:
             pass

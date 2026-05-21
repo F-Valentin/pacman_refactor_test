@@ -1,9 +1,17 @@
 import arcade
 
+from entity.player import Player
+
 
 class Level(arcade.View):
-    def __init__(self) -> None:
+    def __init__(self, player: Player) -> None:
         super().__init__()
+
+        self._player = player
+
+    @property
+    def player(self) -> Player:
+        return self._player
 
     def on_update(self, delta_time: float) -> bool | None:
         self._fixed_update(delta_time)
@@ -16,11 +24,10 @@ class Level(arcade.View):
 
             time_accumulator -= time_step
 
+    def on_key_press(self, symbol: int, modifiers: int) -> bool | None:
+        self.player.set_next_direction(key=symbol)
+
     def on_draw(self) -> bool | None:
         self.clear()
 
-        arcade.Text(
-            "Level View",
-            self.window.width / 2,
-            self.window.height / 2,
-            font_size=20).draw()
+        self.player.draw()
