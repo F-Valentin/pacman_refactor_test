@@ -1,4 +1,5 @@
 import arcade
 
 class Ghost(arcade.Sprite):
-    def __init__(self, ) -> None:
+    def __init__(self) -> None:
+        pass

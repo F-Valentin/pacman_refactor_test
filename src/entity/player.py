@@ -1,8 +1,6 @@
 import arcade
-import math
 from enum import Enum
 from typing import Optional
-from utils import Direction
 
 
 class PlayerState(Enum):
@@ -25,23 +23,8 @@ class Player(arcade.Sprite):
         self._lives: int = 0
         self.next_direction: PlayerDirection = PlayerDirection.RIGHT
         self.speed: float = 0.0
-        # self._grid_coordinate: arcade.Vec2 = arcade.Vec2(0.0, 0.0)
         self.state: PlayerState = PlayerState.IDLE
-        # self.tile_size: int
-
-    # def get_grid_coordinate(self) -> arcade.Vec2:
-    #     return self._grid_coordinate
-
-    # def _update_grid_coordinate(self) -> None:
-    #     tile_size: int = self.tile_size
-
-    #     x: float = self.center_x / float(tile_size)
-    #     y: float = self.center_y / float(tile_size)
-
-    #     self._grid_coordinate = arcade.Vec2(
-    #         math.floor(x),
-    #         math.floor(y),
-    #     )
+ 
     def set_next_direction(self, key: int) -> None:
         match key:
             case arcade.key.UP | arcade.key.W:
