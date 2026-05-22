@@ -7,11 +7,11 @@ from mazegenerator import MazeGenerator
 
 class Maze:
     def __init__(self, width: int, height: int,
-                 top_left_pos: Vec2, cell_size: int) -> None:
+                 bottom_left_pos: Vec2, cell_size: int) -> None:
         self._grid: list[list[Cell]] = []
         self._width = width
         self._height = height
-        self._top_left_pos = top_left_pos
+        self._bottom_left_pos = bottom_left_pos
         self._cell_size = cell_size
         self.__wall_points: list[tuple[float, float]] = []
         self.__pacgums: list[Pacgum] = []
@@ -29,8 +29,12 @@ class Maze:
         return self._height
 
     @property
-    def top_left_pos(self) -> Vec2:
-        return self._top_left_pos
+    def bottom_left_pos(self) -> Vec2:
+        return self._bottom_left_pos
+    
+    @property
+    def cell_size(self) -> int:
+        return self._cell_size
 
     def setup(self) -> None:
         maze_generator = MazeGenerator((self.width, self.height))
@@ -51,22 +55,21 @@ class Maze:
     def __build_wall_points(self) -> list[tuple[float, float]]:
         wall_points: list[tuple[float, float]] = []
         cell_size: int = self._cell_size
+        north, east, south, west = 0b0001, 0b0010, 0b0100, 0b1000
 
         for cells in self.grid:
             for cell in cells:
-                point_x = cell.grid_x * cell_size + self.top_left_pos.x
+                point_x = cell.grid_x * cell_size + self.bottom_left_pos.x
 
                 point_y = (
                     (self.height - 1.0 - cell.grid_y) * cell_size +
-                    self.top_left_pos.y
+                    self.bottom_left_pos.y
                 )
 
                 top_left = (point_x, point_y + cell_size)
                 top_right = (point_x + cell_size, point_y + cell_size)
                 bottom_left = (point_x, point_y)
                 bottom_right = (point_x + cell_size, point_y)
-
-                north, east, south, west = 0b0001, 0b0010, 0b0100, 0b1000
 
                 if cell.walls & north:
                     wall_points += [top_left, top_right]
@@ -92,12 +95,12 @@ class Maze:
             for cell in cells:
                 center_x: int = int(
                     cell.grid_x * cell_size +
-                    self.top_left_pos.x + cell_size // 2
+                    self.bottom_left_pos.x + cell_size // 2
                 )
 
                 center_y: int = int(
                     (self.height - 1 - cell.grid_y) * cell_size +
-                    self.top_left_pos.y + cell_size // 2
+                    self.bottom_left_pos.y + cell_size // 2
                 )
 
                 cell.center = Vec2(center_x, center_y)
@@ -123,7 +126,8 @@ class Maze:
 
     def __draw_pacgums(self) -> None:
         for pacgum in self.__pacgums:
-            draw_pacgum(pacgum)
+            if pacgum.alive:
+                draw_pacgum(pacgum)
 
     def __draw_wall_points(self) -> None:
         arcade.draw_lines(self.__wall_points, arcade.color.BLUE, 2)

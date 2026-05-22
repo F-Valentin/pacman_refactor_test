@@ -40,7 +40,13 @@ class Game:
         )
 
         maze.setup()
-        level = Level(Player(), maze)
+        player = Player(maze)
+        half = maze_width * cell_size // 2
+        offset = 0 if maze_width % 2 != 0 else -cell_size // 2
+        x = int(maze.bottom_left_pos.x + half + offset)
+        y = int(maze.bottom_left_pos.y + half + offset)
+        player.position = (x, y)
+        level = Level(player, maze)
         self.__window.show_view(level)
 
     def pause(self) -> None:

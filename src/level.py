@@ -12,15 +12,14 @@ class Level(arcade.View):
         self.__maze = maze
 
     def on_update(self, delta_time: float) -> None:
-        # self.__fixed_update(delta_time)
-        pass
+        self.__fixed_update(delta_time)
 
     def __fixed_update(self, delta_time: float) -> None:
         time_accumulator: float = delta_time
         time_step: float = 1 / 60
 
         while time_accumulator >= time_step:
-
+            self.__player.update()
             time_accumulator -= time_step
 
     def on_key_press(self, symbol: int, modifiers: int) -> None:
@@ -29,5 +28,5 @@ class Level(arcade.View):
     def on_draw(self) -> None:
         self.clear()
 
-        # self.__player.draw()
         self.__maze.draw()
+        self.__player.draw()
