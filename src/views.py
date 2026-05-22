@@ -19,14 +19,14 @@ class MenuView(arcade.View):
     def on_show_view(self) -> None:
         print("Menu View started")
 
-    def on_key_press(self, symbol: int, modifiers: int) -> bool | None:
+    def on_key_press(self, symbol: int, modifiers: int) -> None:
         if symbol == arcade.key.SPACE:
             self.game.start()
 
         if symbol == arcade.key.Q:
             pass
 
-    def on_draw(self) -> bool | None:
+    def on_draw(self) -> None:
         """ Draw everything """
         self.clear()
 

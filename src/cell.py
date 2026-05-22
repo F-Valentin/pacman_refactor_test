@@ -58,3 +58,9 @@ class Cell:
 
         if self.pacgum:
             self.pacgum.radius = radius
+
+    def has_pacgum(self) -> bool:
+        if not self.pacgum:
+            return False
+
+        return self.pacgum.alive
