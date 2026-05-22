@@ -1,6 +1,7 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 import arcade
+from button import Button
 
 if TYPE_CHECKING:
     from game import Game
@@ -11,10 +12,20 @@ class MenuView(arcade.View):
         super().__init__()
 
         self._game = game
+        self.__start_button: Button
+
+        self.setup()
 
     @property
     def game(self) -> Game:
         return self._game
+
+    def setup(self) -> None:
+        self.__start_button = Button(
+            self.window.width // 2,
+            self.window.height // 2 + 100,
+            "assets/button/game01.png"
+        )
 
     def on_show_view(self) -> None:
         print("Menu View started")
@@ -29,6 +40,8 @@ class MenuView(arcade.View):
     def on_draw(self) -> None:
         """ Draw everything """
         self.clear()
+
+        self.__start_button.draw()
 
         arcade.Text(
             "Menu View",

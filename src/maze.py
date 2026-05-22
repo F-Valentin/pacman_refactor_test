@@ -31,7 +31,7 @@ class Maze:
     @property
     def bottom_left_pos(self) -> Vec2:
         return self._bottom_left_pos
-    
+
     @property
     def cell_size(self) -> int:
         return self._cell_size
@@ -104,7 +104,6 @@ class Maze:
                 )
 
                 cell.center = Vec2(center_x, center_y)
-
 
                 if cell.walls != blocked:
                     pacgum = Pacgum(
