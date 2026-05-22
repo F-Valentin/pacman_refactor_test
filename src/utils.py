@@ -1,9 +1,10 @@
 from dataclasses import dataclass
+from typing import Any
 
 
 @dataclass
 class Rect:
     x: float
     y: float
-    _width: float
-    _height: float
+    width: float
+    height: float
