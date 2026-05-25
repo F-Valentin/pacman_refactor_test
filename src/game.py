@@ -18,7 +18,7 @@ class Game:
         # 2 - start the first level
         maze_width = 10
         maze_height = 10
-        cell_size = 60
+        cell_size = 72
 
         offset_x: int = (
             (self.__game_config.screen_width -
@@ -43,9 +43,13 @@ class Game:
         player = Player(maze)
         half = maze_width * cell_size // 2
         offset = 0 if maze_width % 2 != 0 else -cell_size // 2
-        x = int(maze.bottom_left_pos.x + half + offset)
-        y = int(maze.bottom_left_pos.y + half + offset)
+        x = int(offset_x + half + offset)
+        y = int(offset_y  + half + offset)
+
+
+        print((x, y))
         player.position = (x, y)
+        player.setup()
         level = Level(player, maze)
         self.__window.show_view(level)
 

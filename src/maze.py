@@ -100,8 +100,7 @@ class Maze:
 
                 center_y: int = int(
                     (self.height - 1 - cell.grid_y) * cell_size +
-                    self.bottom_left_pos.y + cell_size // 2
-                )
+                    self.bottom_left_pos.y + cell_size // 2) 
 
                 cell.center = Vec2(center_x, center_y)
 
@@ -112,6 +111,9 @@ class Maze:
                     )
 
                     cell.add_pacgum(pacgum)
+    
+    def get_cell(self, x: int, y: int) -> Cell:
+        return self._grid[y][x]
 
     def __get_cells_pacgums(self) -> list[Pacgum]:
         pacgums: list[Pacgum] = []
